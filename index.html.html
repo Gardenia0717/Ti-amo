@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feliz 3 Meses, Ojitos Miel</title>
+<!-- Google Fonts: Playfair Display -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Fondo y estilo general */
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('https://img.pikbest.com/back_our/20210225/bg/76180779c4738.png!w700wp') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1;
+  }
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 100px 20px 20px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+  }
+  header h1 {
+    font-size: 3em;
+    color: #ffd700;
+    font-weight: 600;
+    margin: 0;
+  }
+  header p {
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
+  .audio-container {
+    text-align: center;
+    margin-top: 20px;
+    z-index: 10;
+    position: relative;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+  }
+  .lechuza-img {
+    width: 100px;
+    margin: 20px auto;
+    display: block;
+    animation: float 4s ease-in-out infinite;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    z-index: 10;
+    position: relative;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Estrellas animadas */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s infinite alternate;
+  }
+  @keyframes twinkle {
+    from {opacity: 0.3;}
+    to {opacity: 1;}
+  }
+
+  /* Corazones flotantes */
+  .heart {
+    position: fixed;
+    bottom: -50px;
+    width: 25px;
+    height: 22px;
+    background: red;
+    transform-origin: center;
+    animation: floatUp linear forwards;
+    clip-path: polygon(
+      50% 0%,
+      100% 35%,
+      80% 100%,
+      50% 85%,
+      20% 100%,
+      0% 35%
+    );
+    opacity: 0.7;
+    z-index: 3;
+  }
+  @keyframes floatUp {
+    to {
+      transform: translateY(-110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Carrusel fotos y videos */
+  .carousel {
+    max-width: 350px;
+    margin: 40px auto 10px;
+    position: relative;
+    z-index: 10;
+    border: 3px solid #ffd700;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 5px #ffd700aa;
+    background: #000;
+    height: auto;
+  }
+
+  /* Imágenes */
+  .carousel img {
+    width: 100%;
+    display: none;
+    user-select: none;
+    border-radius: 15px;
+    object-fit: contain;
+    max-height: 450px;
+  }
+
+  /* Videos */
+  .carousel .video-container {
+    width: 100%;
+    display: none;
+    border-radius: 15px;
+    position: relative;
+    padding-top: 56.25%; /* 16:9 ratio */
+    max-height: 450px;
+  }
+
+  .carousel .video-container iframe {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 5px #ffd700aa;
+  }
+
+  .carousel img.active,
+  .carousel .video-container.active {
+    display: block;
+  }
+
+  .carousel-controls {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .carousel-controls button {
+    background: #ffd700;
+    border: none;
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s;
+  }
+  .carousel-controls button:hover {
+    background: #ffea00;
+  }
+
+  /* Libro de visitas */
+  .guestbook {
+    max-width: 700px;
+    margin: 40px auto 60px;
+    background: rgba(255,255,255,0.1);
+    border-left: 5px solid #ffd700;
+    padding: 20px;
+    font-family: 'Playfair Display', serif;
+    z-index: 10;
+    position: relative;
+  }
+  .guestbook h3 {
+    margin-top: 0;
+  }
+  .guestbook textarea {
+    width: 100%;
+    height: 80px;
+    resize: none;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1em;
+  }
+  .guestbook button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+    background: #ffd700;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .guestbook button:hover {
+    background: #ffea00;
+  }
+  .guestbook ul {
+    margin-top: 20px;
+    max-height: 150px;
+    overflow-y: auto;
+    list-style-type: none;
+    padding-left: 0;
+    color: #fff;
+  }
+  .guestbook ul li {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ffd70066;
+    padding-bottom: 5px;
+  }
+
+  /* Frases rotativas */
+  .rotating-quotes {
+    max-width: 700px;
+    margin: 40px auto;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3em;
+    text-align: center;
+    color: #ffd700;
+    min-height: 60px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Lluvia de emojis de besos */
+  .kiss-emoji {
+    position: fixed;
+    font-size: 28px;
+    user-select: none;
+    pointer-events: none;
+    animation: kissFloat 4s forwards;
+    z-index: 9999;
+  }
+
+  @keyframes kissFloat {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-120vh) scale(1.3);
+      opacity: 0;
+    }
+  }
+
+  /* Pantalla de bienvenida */
+  #welcomeScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: url('https://img.pikbest.com/back_our/20210225/bg/76180779c4738.png!w700wp') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    z-index: 99999;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    padding: 20px;
+  }
+  #welcomeScreen button {
+    font-size: 1.5rem;
+    padding: 12px 25px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #ffd700;
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 0 12px #ffd700cc;
+    transition: background 0.3s ease;
+  }
+  #welcomeScreen button:hover {
+    background: #ffea00;
+  }
+  #loveMessage {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #ffd700;
+    display: none;
+  }
+  #enterBtn {
+    margin-top: 15px;
+    font-size: 1.4rem;
+    padding: 10px 25px;
+    border-radius: 15px;
+    border: none;
+    background: #ff69b4;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    display: none;
+    box-shadow: 0 0 10px #ff69b4cc;
+    transition: background 0.3s ease;
+  }
+  #enterBtn:hover {
+    background: #ff85c1;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Pantalla bienvenida -->
+  <div id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" aria-describedby="welcomeDesc">
+    <h2 id="welcomeTitle">Hola mi amor 💖</h2>
+    <p id="kissPhrase">Me muero por verte hoy. Que tengas un día tan lindo como tú.</p>
+    <button id="kissBtn" aria-label="Enviar besos virtuales">💋 Besos virtuales 💋</button>
+    <div id="loveMessage">Te amo más que a nada en este mundo. ❤️‍🔥</div>
+    <button id="enterBtn" aria-label="Entrar a la página">🌹 Ti amo 🌹</button>
+    <audio id="kissAudio" src="https://actions.google.com/sounds/v1/human/kiss.ogg" preload="auto"></audio>
+  </div>
+
+  <div class="overlay"></div>
+
+  <header style="display:none;">
+    <img src="https://ih1.redbubble.net/image.4920893882.2346/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Lechuza" class="lechuza-img" />
+    <h1>Feliz 3 Meses, mi Ojitos Miel</h1>
+    <p>Como las myosotis, que florecen en los rincones más escondidos, mi amor por ti crece en cada pequeño instante que compartimos ❤️</p>
+  </header>
+  <div class="audio-container" style="display:none;">
+    <p>Aún recuerdo cuando tú me dedicaste esta canción que hizo llenar mis ojos de lágrimas de felicidad 🥹🎶</p>
+    <audio controls autoplay loop> 
+      <source src="https://dl.dropboxusercontent.com/scl/fi/vgor3mywyi3in6mb4agbv/just_the_way_you_are.mp3.mp3?rlkey=vqk7md8dfjf8i5ontejp9us3s&st=brgz1keq&dl=1" type="audio/mpeg">
+      Tu navegador no soporta la reproducción de audio.
+    </audio>
+  </div>
+
+  <!-- Carrusel de fotos y videos -->
+  <div class="carousel" aria-label="Carrusel de fotos y videos" style="display:none;">
+    <!-- Imágenes -->
+    <img src="https://i.pinimg.com/736x/66/2f/b6/662fb606e322a51534b3b407e0c7164f.jpg" alt="Foto especial 1" class="active" />
+    <img src="https://i.pinimg.com/736x/97/5f/b9/975fb947f066b2a1fbe94d629920b93c.jpg" alt="Foto especial 2" />
+    <img src="https://i.pinimg.com/736x/41/ad/16/41ad16aa7e57755d00adf0279d9fa1d2.jpg" alt="Foto especial 3" />
+    <!-- Videos -->
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/G_-8Zt1Yl7E?si=6Arfc6KbVCw_yih-" title="Video 1" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/n0f6SBQX1Lg?si=JOdWOePhCnNMhBq4" title="Video 2" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/yUjq-z1wLZc?si=RZbqcr58RHm_t6kq" title="Video 3" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/pYArsMBRaDA?si=4Cj7DC8-Bwfn6OL8" title="Video 4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/HTCHuSRG3wI?si=6b0ld0Hos2FtOWwz" title="Video 5" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="carousel-controls">
+      <button id="prevBtn" aria-label="Foto/video anterior">←</button>
+      <button id="nextBtn" aria-label="Foto/video siguiente">→</button>
+    </div>
+  </div>
+
+  <!-- Rompecabezas -->
+  <div
+   class="puzzle-section" style="z-index:10; position:relative; text-align:center; max-width:500px; margin: 20px auto; display:none;">
+    <h2>Un rompecabezas de nosotras 💕</h2>
+    <p>¿Recuerdas esta imagen tan especial? 🥰 Pero ahora está hecha pedacitos... ¡Ármala!</p>
+    <a href="https://www.jigsawplanet.com/?rc=play&pid=3d85e6fc8deb" target="_blank" style="background-color:#ffd700; color:#000; padding:12px 20px; border-radius:20px; font-weight:600; box-shadow:2px 2px 8px #000; text-decoration:none;">
+      Ahora mi vida, arma un pequeño rompecabezas 🧩
+    </a>
+    <p style="color: #ccc; font-style: italic; margin-top: 10px;">
+      (Si ves el rompecabezas armado, presiona el ícono de reinicio 🔄 arriba a la derecha)
+    </p>
+  </div>
+
+  <!-- Frases rotativas -->
+  <div class="rotating-quotes" id="rotatingQuotes" style="display:none;"></div>
+
+  <!-- Libro de visitas -->
+  <div class="guestbook" aria-label="Libro de visitas" style="display:none;">
+    <h3>Déjame un mensajito, mi amor 💌</h3>
+    <textarea id="guestbookInput" placeholder="Escribe aquí..."></textarea><br />
+    <button id="saveMessageBtn">Guardar mensaje</button>
+    <ul id="messagesList"></ul>
+  </div>
+
+  <footer style="z-index: 10; position: relative; text-align:center; padding: 50px 20px; color: #ffc; font-family: 'Playfair Display', serif; font-weight: 400; display:none;">
+    <p>Gracias por estos 3 maravillosos meses juntas. Cada día a tu lado es un regalo que ilumina mi vida. Eres mi luz, mi alegría y como siempre te digo eres la razón por la que sonrío a pesar de que a veces me enojo amo cada una de tus bromas. Te amo con todo mi corazón y sueño con despertar a tu lado por siempre.❤️‍🩹</p>
+    <p>Tu compañera de vida y sueños.🌙</p>
+  </footer>
+
+  <!-- Estrellas animadas -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Corazones flotantes -->
+  <script>
+    // Crear estrellas animadas
+    const starsContainer = document.getElementById('stars');
+    const numStars = 100;
+
+    for(let i=0; i<numStars; i++){
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (2 + Math.random() * 3) + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // Crear corazones flotantes
+    function createHeart(){
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.width = (15 + Math.random() * 15) + 'px';
+      heart.style.height = (13 + Math.random() * 13) + 'px';
+      heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+    setInterval(createHeart, 600);
+
+  </script>
+
+  <!-- Funcionalidad bienvenida -->
+  <script>
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const kissBtn = document.getElementById('kissBtn');
+    const loveMessage = document.getElementById('loveMessage');
+    const enterBtn = document.getElementById('enterBtn');
+    const kissAudio = document.getElementById('kissAudio');
+
+    // Al hacer click en "💋 Besos virtuales 💋"
+    kissBtn.addEventListener('click', () => {
+      // Reproducir audio de beso
+      kissAudio.currentTime = 0;
+      kissAudio.play();
+
+      // Quitar título y frase
+      document.getElementById('welcomeTitle').style.display = 'none';
+      document.getElementById('kissPhrase').style.display = 'none';
+      kissBtn.style.display = 'none';
+
+      // Mostrar lluvia de besos animados
+      createKissRain(30);
+
+      // Mostrar mensaje de amor y botón entrar
+      loveMessage.style.display = 'block';
+      enterBtn.style.display = 'inline-block';
+    });
+
+    // Función para lluvia de emojis beso
+    function createKissRain(count) {
+      for(let i=0; i<count; i++) {
+        setTimeout(() => {
+          const kiss = document.createElement('div');
+          kiss.classList.add('kiss-emoji');
+          kiss.style.left = Math.random() * 100 + 'vw';
+          kiss.style.top = '100vh';
+          kiss.textContent = '💋';
+          kiss.style.animationDuration = (3 + Math.random() * 2) + 's';
+          document.body.appendChild(kiss);
+
+          setTimeout(() => {
+            kiss.remove();
+          }, 5000);
+        }, i * 100);
+      }
+    }
+
+    // Al hacer click en "Ti amo"
+    enterBtn.addEventListener('click', () => {
+      // Ocultar pantalla bienvenida y overlay
+      welcomeScreen.style.display = 'none';
+      document.querySelector('.overlay').style.display = 'none';
+
+      // Mostrar contenido principal
+      document.querySelector('header').style.display = 'block';
+      document.querySelector('.audio-container').style.display = 'block';
+      document.querySelector('.carousel').style.display = 'block';
+      document.querySelector('.puzzle-section').style.display = 'block';
+      document.getElementById('rotatingQuotes').style.display = 'block';
+      document.querySelector('.guestbook').style.display = 'block';
+      document.querySelector('footer').style.display = 'block';
+    });
+
+  </script>
+
+  <!-- Rotar frases de amor -->
+  <script>
+    const quotes = [
+      "Tu sonrisa es el sol que ilumina mis días más grises.",
+      "Cada momento contigo es un tesoro que guardo en mi corazón.",
+      "Eres la melodía perfecta que da sentido a mi vida.",
+      "Amarte es el mejor regalo que me ha dado la vida.",
+      "Juntos somos invencibles, mi amor eterno.",
+      "Eres el sueño que jamás quiero dejar de soñar.",
+      "En cada beso tuyo encuentro mi paz y mi hogar.",
+      "Mi amor por ti crece con cada latido de mi corazón.",
+      "Gracias por hacerme la persona más feliz del mundo.",
+      "Contigo, todo es posible. Te amo infinitamente."
+    ];
+    let quoteIndex = 0;
+    const quoteElement = document.getElementById('rotatingQuotes');
+
+    function showNextQuote(){
+      quoteElement.textContent = quotes[quoteIndex];
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+    }
+    showNextQuote();
+    setInterval(showNextQuote, 7000);
+  </script>
+
+  <!-- Carrusel funcional -->
+  <script>
+    const carousel = document.querySelector('.carousel');
+    const items = carousel.querySelectorAll('img, .video-container');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+
+    function showItem(index){
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+    }
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      showItem(currentIndex);
+    });
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % items.length;
+      showItem(currentIndex);
+    });
+    // Mostrar primero
+    showItem(currentIndex);
+  </script>
+
+  <!-- Libro de visitas funcional -->
+  <script>
+    const saveBtn = document.getElementById('saveMessageBtn');
+    const input = document.getElementById('guestbookInput');
+    const list = document.getElementById('messagesList');
+
+    // Cargar mensajes desde localStorage
+    function loadMessages(){
+      const messages = JSON.parse(localStorage.getItem('guestbookMessages') || '[]');
+      list.innerHTML = '';
+      messages.forEach(msg => {
+        const li = document.createElement('li');
+        li.textContent = msg;
+        list.appendChild(li);
+      });
+    }
+    loadMessages();
+
+    saveBtn.addEventListener('click', () => {
+      const text = input.value.trim();
+      if(text){
+        const messages = JSON.parse(localStorage.getItem('guestbookMessages') || '[]');
+        messages.push(text);
+        localStorage.setItem('guestbookMessages', JSON.stringify(messages));
+        input.value = '';
+        loadMessages();
+      } else {
+        alert('Por favor escribe un mensaje antes de guardar.');
+      }
+    });
+  </script>
+
+</body>
+</html>
